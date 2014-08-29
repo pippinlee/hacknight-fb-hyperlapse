@@ -84,7 +84,7 @@ ul li:nth-child(1) {
   bottom: 50px;
   margin-left: 255px;
   margin-bottom: 16px;
-  background-image: url('unmute.png');
+  background-image: url('img/unmute.png');
   background-repeat: no-repeat;
   background-position: center;
 }
