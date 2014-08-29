@@ -1,5 +1,7 @@
 ## Hacknight project
 
+Demo: [demo](http://pippinlee.com/hyper-intro/) 
+
 * Goal: duplicate FB's Hyperlapse intro screen on the web
 * Why: layering of audio tracks allows the user to add to the song, in a progressive nature, till the last slide, where the song is complete and all instruments/tracks play together
 * Can't be done on mobile, because mobile browsers don't autoplay video
@@ -15,3 +17,7 @@
 * Add mute logic
 * Make better song layers
 * Can the code be simpler --> yes
+
+### Previous versions
+* Swiping on mobile test (won't work on desktop) [pippinlee.com/insta](http://pippinlee.com/insta/)
+* Video clipped, but with original audio [pippinlee.com/insta2](http://pippinlee.com/insta2/)
