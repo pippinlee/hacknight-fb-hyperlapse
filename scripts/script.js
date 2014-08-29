@@ -6,25 +6,29 @@ var song = ['music/p1f.mp3', 'music/p2f.mp3', 'music/p3f.mp3', 'music/p4f.mp3'];
 var middle = $(window).width() * 0.40;
 $('ul').css('left', middle + 'px');
 
-
 $(function() {
-  //music
-  //set volume of last 3 pieces to 0
+  //default all volume to 0
+  document.getElementById('a1').volume = 0;
   document.getElementById('a2').volume = 0;
   document.getElementById('a3').volume = 0;
   document.getElementById('a4').volume = 0;
-  //document.getElementById('a1').volume = 0;
 
-
+  //Fake button code to get around ios autoplay issue?
+  var fakeOnClick = function() {
+    playVideo(0);
+    aud(0);
+  };
+  var fakeButton = document.getElementById('fakeButton');
+  fakeButton.addEventListener('click', fakeOnClick, false);
+  $('#fakeButton').click();
 
   // navigation
-
   $('#right').click(function(){
     i++;
     if(i === 4) {
       i = 0;
     } 
-    $('video').attr('src', arr[i]);
+    playVideo(i);
     slider(i);
     aud(i);
   });
@@ -34,7 +38,7 @@ $(function() {
     if(i < 0) {
       i = 3;
     }
-    $('video').attr('src', arr[i]);
+    playVideo(i);
     slider(i);
     aud(i);
   });
@@ -46,7 +50,7 @@ $(function() {
       if(i === 4) {
         i = 0;
       } 
-      $('video').attr('src', arr[i]);
+      playVideo(i);
       slider(i);
       aud(i);
       //mute();
@@ -57,7 +61,7 @@ $(function() {
       if(i < 0) {
         i = 3;
       }
-      $('video').attr('src', arr[i]);
+      playVideo(i);
       slider(i);
       aud(i);
       //mute();
@@ -86,10 +90,35 @@ $(function() {
 
   $('.mute').click(function() {
     mute();
-  })
+  })*/
 
 
-  function mute() {
+});
+
+//plays video number i from array
+function playVideo(i) {
+  $('#bgvid').attr('src', arr[i]);
+  $('#bgvid').get(0).play();
+}
+
+// sets volume of song loops
+function aud(i) {
+  var Id = i + 1;
+  var x = 1;
+  while (x<=Id){
+    var playElementId = 'a' + x;
+    document.getElementById(playElementId).volume = 1;
+    //mutes song loops ['5' should not be hardcoded but should be set at (number of items in song array + 1)]
+      if(Id<5){
+        var muteX = x + 1;
+        var muteElementId = 'a' + muteX;
+        document.getElementById(muteElementId).volume = 0;
+      }
+    x++;
+  }
+}
+
+function mute() {
     $('.mute').on('click', function(){
      if (!muted){
       //function
@@ -109,10 +138,9 @@ $(function() {
       aud(i);
      }
     });
-  }
-  */
+}
 
-  function slider(i) {
+function slider(i) {
     if(i === 0) {
       //console.log('i is 0');
       $('ul li').css('background-color', "rgba(255, 255, 255, 0.55)");
@@ -130,34 +158,4 @@ $(function() {
       //console.log('i is 3');
       $( "ul li:nth-child(4)" ).css( "background-color", "rgba(247, 255, 157, 0.95)" );
     }
-  }
-
-  function aud(i) {
-    if(i === 0) {
-      //console.log(i);
-      document.getElementById('a1').volume = 1;
-      document.getElementById('a2').volume = 0;
-      document.getElementById('a3').volume = 0;
-      document.getElementById('a4').volume = 0;
-    } else if(i ===1) {
-      //console.log(i);
-      document.getElementById('a1').volume = 1;
-      document.getElementById('a2').volume = 1;
-      document.getElementById('a3').volume = 0;
-      document.getElementById('a4').volume = 0;
-    } else if(i === 2) {
-      //console.log(i);
-      document.getElementById('a1').volume = 1;
-      document.getElementById('a2').volume = 1;
-      document.getElementById('a3').volume = 1;
-      document.getElementById('a4').volume = 0;
-    } else if(i === 3) {
-      //console.log(i);
-      document.getElementById('a1').volume = 1;
-      document.getElementById('a2').volume = 1;
-      document.getElementById('a3').volume = 1;
-      document.getElementById('a4').volume = 1;
-    }
-  }
-
-});
+}
